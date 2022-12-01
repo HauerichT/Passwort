@@ -18,15 +18,17 @@ public class PasswortGenerator {
     public void erstellePasswort() {
 
         StringBuilder tempMerksatz = new StringBuilder();
-        tempMerksatz.append(merksatz);
+        tempMerksatz.append(merksatz.toLowerCase());
 
         StringBuilder tempPasswort = new StringBuilder();
 
         for (int i = 0; i < tempMerksatz.length(); i++) {
             String aktChar = Character.toString(tempMerksatz.charAt(i));
-            if (aktChar.matches("[a-zA-Z]|\s")) {
+
+            if (aktChar.matches("[a-z]|\s")) {
                 tempPasswort.append(tempMerksatz.charAt(i));
             }
+
         }
 
         System.out.println(tempPasswort);
