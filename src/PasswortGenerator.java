@@ -1,10 +1,10 @@
-import java.util.Arrays;
-
 public class PasswortGenerator {
 
+    // Instanzvariablen
     private String merksatz;
-    private String passwort;
+    private String passwort = "";
 
+    // Konstruktor
     PasswortGenerator(String merksatz) {
 
         if (merksatz.length() == 0) {
@@ -15,28 +15,56 @@ public class PasswortGenerator {
 
     }
 
+    // Methode generiert Passwort aus übergebenen Satz
     public void erstellePasswort() {
 
-        StringBuilder tempMerksatz = new StringBuilder();
-        tempMerksatz.append(merksatz.toLowerCase());
+        // Leerzeichen am Anfang und Ende entfernen
+        merksatz = merksatz.trim();
 
-        StringBuilder tempPasswort = new StringBuilder();
+        // in Kleinbuchstaben umwandeln
+        merksatz = merksatz.toLowerCase();
 
-        for (int i = 0; i < tempMerksatz.length(); i++) {
-            String aktChar = Character.toString(tempMerksatz.charAt(i));
+        // String in String-Array splitten
+        String[] result = merksatz.split(" ");
 
-            if (aktChar.matches("[a-z]|\s")) {
-                tempPasswort.append(tempMerksatz.charAt(i));
+        // boolean um Klein- bzw. Großbuchstaben darzustellen
+        boolean toUppercase = false;
+
+        for (int i = 0; i < result.length; i++) {
+
+            for (int j = 0; j < result[i].length(); j++) {
+
+                // speichert aktuellen Buchstaben
+                String akt = String.valueOf(result[i].charAt(j));
+
+                // speichert aktuellen Buchstaben als Großbuchstaben
+                String aktUppercase = akt.toUpperCase();
+
+                // prüft auf die zulässigen Symbole
+                if (akt.matches("[a-z]|\s")) {
+
+                    // fügt dem Passwort den zulässigen Groß- oder Kleinbuchstaben hinzu
+                    if (toUppercase) {
+                        this.passwort = this.passwort.concat(aktUppercase);
+                        toUppercase = false;
+                        break;
+                    }
+                    else {
+                        this.passwort = this.passwort.concat(akt);
+                        toUppercase = true;
+                        break;
+                    }
+
+                }
+
             }
 
         }
 
-        System.out.println(tempPasswort);
-
-
     }
 
+    // Methode zum printen des Passworts
     public void printPasswort() {
-        //System.out.println("Generiertes Passwort: " + this.passwort);
+        System.out.println("Generiertes Passwort: " + this.passwort);
     }
 }
