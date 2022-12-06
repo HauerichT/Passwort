@@ -25,35 +25,34 @@ public class PasswortGenerator {
         merksatz = merksatz.toLowerCase();
 
         // String in String-Array splitten
-        String[] result = merksatz.split(" ");
+        String[] merksatzSplit = merksatz.split(" ");
 
         // boolean um Klein- bzw. Großbuchstaben darzustellen
-        boolean toUppercase = false;
+        boolean grossbuchstabe = false;
 
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < merksatzSplit.length; i++) {
 
-            for (int j = 0; j < result[i].length(); j++) {
+            for (int j = 0; j < merksatzSplit[i].length(); j++) {
 
                 // speichert aktuellen Buchstaben
-                String akt = String.valueOf(result[i].charAt(j));
+                String aktuellerBuchstabe = String.valueOf(merksatzSplit[i].charAt(j));
 
                 // speichert aktuellen Buchstaben als Großbuchstaben
-                String aktUppercase = akt.toUpperCase();
+                String aktuellerBuchstabeGross = aktuellerBuchstabe.toUpperCase();
 
                 // prüft auf die zulässigen Symbole
-                if (akt.matches("[a-z]|\s")) {
+                if (aktuellerBuchstabe.matches("[a-z]|\s")) {
 
                     // fügt dem Passwort den zulässigen Groß- oder Kleinbuchstaben hinzu
-                    if (toUppercase) {
-                        this.passwort = this.passwort.concat(aktUppercase);
-                        toUppercase = false;
-                        break;
+                    if (grossbuchstabe) {
+                        this.passwort = this.passwort.concat(aktuellerBuchstabeGross);
+                        grossbuchstabe = false;
                     }
                     else {
-                        this.passwort = this.passwort.concat(akt);
-                        toUppercase = true;
-                        break;
+                        this.passwort = this.passwort.concat(aktuellerBuchstabe);
+                        grossbuchstabe = true;
                     }
+                    break;
 
                 }
 
